@@ -9,6 +9,63 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== 'fun
 
 var React = require('react');
 
+var TodoList = React.createClass({
+  displayName: 'TodoList',
+
+  render: function render() {
+    var createItem = function createItem(itemText, index) {
+      return React.createElement(
+        'li',
+        { key: index + itemText },
+        itemText
+      );
+    };
+    return React.createElement(
+      'ul',
+      null,
+      this.props.items.map(createItem)
+    );
+  }
+});
+var TodoApp = React.createClass({
+  displayName: 'TodoApp',
+
+  getInitialState: function getInitialState() {
+    return { items: [], text: '' };
+  },
+  onChange: function onChange(e) {
+    this.setState({ text: e.target.value });
+  },
+  handleSubmit: function handleSubmit(e) {
+    e.preventDefault();
+    var nextItems = this.state.items.concat([this.state.text]);
+    var nextText = '';
+    this.setState({ items: nextItems, text: nextText });
+  },
+  render: function render() {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'h3',
+        null,
+        'TODO'
+      ),
+      React.createElement(TodoList, { items: this.state.items }),
+      React.createElement(
+        'form',
+        { onSubmit: this.handleSubmit },
+        React.createElement('input', { onChange: this.onChange, value: this.state.text }),
+        React.createElement(
+          'button',
+          null,
+          'Add #' + (this.state.items.length + 1)
+        )
+      )
+    );
+  }
+});
+
 var HelloWorld = (function (_React$Component) {
   function HelloWorld() {
     _classCallCheck(this, HelloWorld);
@@ -34,9 +91,26 @@ var HelloWorld = (function (_React$Component) {
   return HelloWorld;
 })(React.Component);
 
-React.render(React.createElement(HelloWorld, null), document.body);
+function getActiveConversationEl() {
+  return document.getElementsByClassName('_1ht1 _1ht2')[0];
+}
 
-console.log('\'Allo \'Allo! Content Script Injected');
+function getActiveConversationReactID() {
+  return getActiveConversationEl().getAttribute('data-reactid');
+}
+
+function renderReact() {
+  var el = document.getElementsByClassName('_3tkv _5vn4')[0];
+  var para = document.createElement('div');
+  para.className = 'messenger-pro';
+  el.appendChild(para);
+  console.log(el);
+  console.log(getActiveConversationReactID());
+
+  React.render(React.createElement(HelloWorld, null), document.getElementsByClassName('messenger-pro')[0]);
+}
+
+window.setTimeout(renderReact, [2000]);
 
 },{"react":156}],2:[function(require,module,exports){
 /**

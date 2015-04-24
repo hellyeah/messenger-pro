@@ -23,7 +23,10 @@
     "time-grunt": "~0.3.1",
     "jshint-stylish": "~0.1.5",
     "grunt-chrome-manifest": "~0.2.0",
-    "grunt-contrib-compress": "~0.9.1"
+    "grunt-contrib-compress": "~0.9.1",
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.8",
+    "react": "^0.13.1"
   },
   "engines": {
     "node": ">=0.8.0"
